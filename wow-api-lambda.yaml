@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  wowapilootLambda: 
+    Type: "AWS::Lambda::Function"
+    Properties: 
+      Handler: "index.handler"
+      FunctionName: "wow-api-get-lootfeed"
+      Role: 
+        Fn::GetAtt: 
+          - "kenfunctions"
+          - "Arn"
+      Code: 
+        ZipFile: lambdacode.zip
+      Runtime: "nodejs10.x"
+      Timeout: 25
+      TracingConfig:
+        Mode: "Active"
