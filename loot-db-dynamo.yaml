@@ -10,3 +10,4 @@ Resources:
       KeySchema: 
         - AttributeName: id
           KeyType: HASH
+      TableName: lootfeed
