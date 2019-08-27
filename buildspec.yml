@@ -30,7 +30,7 @@ phases:
                 aws cloudformation create-stack --stack-name ${stacknamesArray[index]} --template-body file://${stackfilesArray[index]}
               else
                 stack exists but isnt rolled back,  update it
-                aws cloudformation validate-template --template-body file://${cloudfile}
+                aws cloudformation validate-template --template-body file://${stackfilesArray[index]}
                 aws cloudformation update-stack --stack-name ${stacknamesArray[index]} --template-body file://${stackfilesArray[index]}
               fi
             fi
