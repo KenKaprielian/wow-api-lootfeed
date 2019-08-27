@@ -3,13 +3,10 @@ env:
   variables:
     stackname: "wow-api-db"
     cloudfile: "wow-api-loot-table.yaml"
-    cloudfiles: 
+  plaintext:
+    cloudfile2s: 
       - "wow-api-loot-table.yaml"
       - "wow-api-lambda.yaml"
-  plaintext:
-    cloudfile2s: |
-      wow-api-loot-table.yaml
-      wow-api-lambda.yaml
     stacknames: |
       wow-api-db
       wow-api-lambda
@@ -20,7 +17,7 @@ phases:
   build:
     commands:
       - | 
-          for cloudfilestr in $cloudfiles; do
+          for cloudfilestr in $cloudfile2s; do
             echo "looping file $cloudfilestr"
             
           done
