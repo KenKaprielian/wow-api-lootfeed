@@ -13,8 +13,9 @@ phases:
           IFS=',' read -r -a array <<< "${stacknames}"
           echo "before test here"
           echo ${array}
-          for cloudfilestr in ${array}; do
-            echo "looping file $cloudfilestr"            
+          for element in "${array[@]}"
+          do
+              echo "element: $element"
           done
           echo "after test here"
 
