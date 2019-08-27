@@ -3,13 +3,13 @@ env:
   variables:
     stackname: "wow-api-db"
     cloudfile: "wow-api-loot-table.yaml"
-  plaintext:
+  parameter-store::
     cloudfile2s: |
       wow-api-loot-table.yaml
       wow-api-lambda.yaml
-    stacknames: |
-      wow-api-db
-      wow-api-lambda
+    cloudfile2a: 
+      - wow-api-db
+      - wow-api-lambda
 phases:
   install:
     runtime-versions:
@@ -23,6 +23,14 @@ phases:
             echo "looping file $cloudfilestr"            
           done
           echo "after test here"
+          
+          echo "before test here a"
+          echo ${cloudfile2a}
+          for cloudfilestr in ${cloudfile2a}; do
+            echo "looping file a $cloudfilestr"            
+          done
+          echo "after test here a"
+          
           STACK_STATUS=$(aws cloudformation describe-stacks --stack-name ${stackname} 2> /dev/null | jq .Stacks | jq .[0] | jq .StackStatus | xargs) 
           echo $STACK_STATUS
           if [ "ROLLBACK_COMPLETE" == "${STACK_STATUS}" ]; then
