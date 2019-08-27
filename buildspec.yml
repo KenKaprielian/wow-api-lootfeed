@@ -12,7 +12,7 @@ phases:
       - | 
       
           npm install
-          zip wow-api-lambda.zip index.js node_modules
+          zip wow-api-lambda.zip index.js node_modules/* package-lock.json
           aws s3 cp wow-api-lambda.zip s3://kens3bucketmm/wow-api-lambda.zip
       
           IFS=',' read -r -a stacknamesArray <<< "${stacknames}"
