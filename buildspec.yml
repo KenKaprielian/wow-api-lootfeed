@@ -4,9 +4,9 @@ env:
     stackname: "wow-api-db"
     cloudfile: "wow-api-loot-table.yaml"
   plaintext:
-    cloudfile2s: 
-      - "wow-api-loot-table.yaml"
-      - "wow-api-lambda.yaml"
+    cloudfile2s: |
+      wow-api-loot-table.yaml
+      wow-api-lambda.yaml
     stacknames: |
       wow-api-db
       wow-api-lambda
