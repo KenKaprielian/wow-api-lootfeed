@@ -2,7 +2,14 @@ version: 0.2
 env:
   variables:
     stackname: "wow-api-db"
-    cloudfile: "loot-db-dynamo.yaml"
+    cloudfile: "wow-api-loot-table.yaml"
+  plaintext:
+    cloudfiles: |
+      wow-api-loot-table.yaml
+      wow-api-lambda.yaml
+    stacknames: |
+      wow-api-db
+      wow-api-lambda
 phases:
   install:
     runtime-versions:
@@ -10,6 +17,11 @@ phases:
   build:
     commands:
       - | 
+          for cloudfilestr in $cloudfiles; do
+            echo "looping file $cloudfilestr"
+            aws cloudformation validate-template --template-body file://$cloudfilestr
+          done
+      
           STACK_STATUS=$(aws cloudformation describe-stacks --stack-name ${stackname} 2> /dev/null | jq .Stacks | jq .[0] | jq .StackStatus | xargs) 
           echo $STACK_STATUS
           if [ "ROLLBACK_COMPLETE" == "${STACK_STATUS}" ]; then
