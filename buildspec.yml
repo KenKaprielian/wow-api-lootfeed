@@ -3,7 +3,9 @@ env:
   variables:
     stackname: "wow-api-db"
     cloudfile: "wow-api-loot-table.yaml"
-    cloudfiles: ["wow-api-loot-table.yaml","wow-api-lambda.yaml"]
+    cloudfiles: 
+      - "wow-api-loot-table.yaml"
+      - "wow-api-lambda.yaml"
   plaintext:
     cloudfile2s: |
       wow-api-loot-table.yaml
