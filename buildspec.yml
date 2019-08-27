@@ -13,10 +13,10 @@ phases:
           IFS=',' read -r -a stacknamesArray <<< "${stacknames}"
           IFS=',' read -r -a stackfilesArray <<< "${stackfiles}"
           varCount=0
-          for stackname in "${stacknamesArray[@]}"
+          for index in "${!stacknamesArray[@]}"
           do
-            echo Current Stackname: $stackname
-            echo Current Stackfile: $stackfilesArray[${varCount}]
+            echo "$index ${stacknamesArray[index]}"
+            echo "$index ${stackfilesArray[index]}"
             STACK_STATUS=$(aws cloudformation describe-stacks --stack-name ${stackname} 2> /dev/null | jq .Stacks | jq .[0] | jq .StackStatus | xargs) 
             echo $STACK_STATUS
             if [ "ROLLBACK_COMPLETE" == "${STACK_STATUS}" ]; then
