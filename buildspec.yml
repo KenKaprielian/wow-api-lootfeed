@@ -10,6 +10,9 @@ phases:
   build:
     commands:
       - | 
+          zip wow-api-lambda.zip index.js
+          aws s3 cp wow-api-lambda.zip s3://kens3bucketmm/wow-api-lambda.zip
+      
           IFS=',' read -r -a stacknamesArray <<< "${stacknames}"
           IFS=',' read -r -a stackfilesArray <<< "${stackfiles}"
           varCount=0
