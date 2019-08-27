@@ -10,9 +10,9 @@ phases:
   build:
     commands:
       - | 
-          IFS=', ' read -r -a array <<< "${stacknames}"
+          IFS=',' read -r -a array <<< "${stacknames}"
           echo "before test here"
-          echo ${lines}
+          echo ${array}
           for cloudfilestr in ${array}; do
             echo "looping file $cloudfilestr"            
           done
