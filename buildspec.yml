@@ -15,23 +15,23 @@ phases:
           varCount=0
           for index in "${!stacknamesArray[@]}"
           do
-            echo "$index ${stacknamesArray[index]}"
-            echo "$index ${stackfilesArray[index]}"
-            STACK_STATUS=$(aws cloudformation describe-stacks --stack-name ${stackname} 2> /dev/null | jq .Stacks | jq .[0] | jq .StackStatus | xargs) 
+            #echo "$index ${stacknamesArray[index]}"
+            #echo "$index ${stackfilesArray[index]}"
+            STACK_STATUS=$(aws cloudformation describe-stacks --stack-name ${stacknamesArray[index]} 2> /dev/null | jq .Stacks | jq .[0] | jq .StackStatus | xargs) 
             echo $STACK_STATUS
             if [ "ROLLBACK_COMPLETE" == "${STACK_STATUS}" ]; then
               echo stack is in ROLLBACK_COMPLETE delete it
-              #aws cloudformation delete-stack --stack-name ${stackname}
-              #aws cloudformation wait stack-delete-complete --stack-name ${stackname}
-              aws cloudformation create-stack --stack-name ${stackname} --template-body file://${cloudfile}
+              aws cloudformation delete-stack --stack-name ${stacknamesArray[index]}
+              aws cloudformation wait stack-delete-complete --stack-name ${stacknamesArray[index]}
+              aws cloudformation create-stack --stack-name ${stacknamesArray[index]} --template-body file://${stackfilesArray[index]}
             else            
               if [ "x" == "x${STACK_STATUS}" ]; then
                 echo stack doesnt exist, create it
-                aws cloudformation create-stack --stack-name ${stackname} --template-body file://${cloudfile}
+                aws cloudformation create-stack --stack-name ${stacknamesArray[index]} --template-body file://${stackfilesArray[index]}
               else
                 stack exists but isnt rolled back,  update it
                 aws cloudformation validate-template --template-body file://${cloudfile}
-                #aws cloudformation update-stack --stack-name ${stackname} --template-body file://${cloudfile}
+                aws cloudformation update-stack --stack-name ${stacknamesArray[index]} --template-body file://${stackfilesArray[index]}
               fi
             fi
           varCount=$((varCount + 1))
