@@ -5,10 +5,7 @@ Resources:
     Properties: 
       Handler: "index.handler"
       FunctionName: "wow-api-get-lootfeed"
-      Role: 
-        Fn::GetAtt: 
-          - "kenfunctions"
-          - "Arn"
+      Role: arn:aws:iam::507345043141:role/service-role/kenfunctions
       Code: 
         ZipFile: lambdacode.zip
       Runtime: "nodejs10.x"
