@@ -19,7 +19,7 @@ phases:
       - | 
           for cloudfilestr in $cloudfiles; do
             echo "looping file $cloudfilestr"
-            aws cloudformation validate-template --template-body file://$cloudfilestr
+            
           done
       
           STACK_STATUS=$(aws cloudformation describe-stacks --stack-name ${stackname} 2> /dev/null | jq .Stacks | jq .[0] | jq .StackStatus | xargs) 
@@ -35,6 +35,7 @@ phases:
               aws cloudformation create-stack --stack-name ${stackname} --template-body file://${cloudfile}
             else
               stack exists but isnt rolled back,  update it
+              aws cloudformation validate-template --template-body file://${cloudfile}
               aws cloudformation update-stack --stack-name ${stackname} --template-body file://${cloudfile}
             fi
           fi
