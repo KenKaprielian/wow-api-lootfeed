@@ -17,11 +17,12 @@ phases:
   build:
     commands:
       - | 
-          for cloudfilestr in $cloudfile2s; do
-            echo "looping file $cloudfilestr"
-            
+          echo "before test here"
+          echo ${cloudfile2s}
+          for cloudfilestr in ${cloudfile2s}; do
+            echo "looping file $cloudfilestr"            
           done
-      
+          echo "after test here"
           STACK_STATUS=$(aws cloudformation describe-stacks --stack-name ${stackname} 2> /dev/null | jq .Stacks | jq .[0] | jq .StackStatus | xargs) 
           echo $STACK_STATUS
           if [ "ROLLBACK_COMPLETE" == "${STACK_STATUS}" ]; then
