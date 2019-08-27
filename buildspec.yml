@@ -10,7 +10,7 @@ phases:
   build:
     commands:
       - | 
-          readarray -t lines <<<"$string"
+          readarray -t lines <<<"${stacknames}"
           echo "before test here"
           echo ${lines}
           for cloudfilestr in ${lines}; do
