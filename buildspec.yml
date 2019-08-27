@@ -21,8 +21,8 @@ phases:
             echo $STACK_STATUS
             if [ "ROLLBACK_COMPLETE" == "${STACK_STATUS}" ]; then
               echo stack is in ROLLBACK_COMPLETE delete it
-              aws cloudformation delete-stack --stack-name ${stackname}
-              aws cloudformation wait stack-delete-complete --stack-name ${stackname}
+              #aws cloudformation delete-stack --stack-name ${stackname}
+              #aws cloudformation wait stack-delete-complete --stack-name ${stackname}
               aws cloudformation create-stack --stack-name ${stackname} --template-body file://${cloudfile}
             else            
               if [ "x" == "x${STACK_STATUS}" ]; then
@@ -31,7 +31,7 @@ phases:
               else
                 stack exists but isnt rolled back,  update it
                 aws cloudformation validate-template --template-body file://${cloudfile}
-                aws cloudformation update-stack --stack-name ${stackname} --template-body file://${cloudfile}
+                #aws cloudformation update-stack --stack-name ${stackname} --template-body file://${cloudfile}
               fi
             fi
           varCount=$((varCount + 1))
