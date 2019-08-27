@@ -7,7 +7,7 @@ Resources:
       FunctionName: "wow-api-get-lootfeed"
       Role: arn:aws:iam::507345043141:role/service-role/kenfunctions
       Code: 
-        S3Bucket: kens3bucketmm,
+        S3Bucket: kens3bucketmm
         S3Key: wpo-api-lambda.zip        
       Runtime: "nodejs10.x"
       Timeout: 25
